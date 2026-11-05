@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opensips-chart-edge
+  namespace: {{ .Release.Namespace }}
+spec:
+  clusterIP: None
+  clusterIPs:
+    - None
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: tcp-sig
+      port: 5060
+      protocol: TCP
+      targetPort: 5060
+  selector:
+    app.kubernetes.io/component: application
+    app.kubernetes.io/name: opensips-edge
+    app.kubernetes.io/part-of: novo-one
+  sessionAffinity: None
+  type: ClusterIP
